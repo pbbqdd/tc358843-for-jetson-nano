@@ -1,0 +1,160 @@
+#include <dt-bindings/media/camera.h>
+#include <dt-bindings/platform/t210/t210.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+host1x {
+
+    vi_base: vi {
+        num-channels = <1>;  // Change 4->2
+        ports {
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            vi_port0: port@0 {
+                status = "okay";
+                reg = <0>;
+                tc358743_vi_in1: endpoint {
+                    status = "okay";
+                    port-index = <0>;  /* CSI-B */
+                    bus-width = <2>; /* Use CSI-B only */
+                    remote-endpoint = <&tc358743_csi_out0>;
+                };
+            };
+        };
+    };
+
+
+    csi_base: nvcsi {
+        num-channels = <1>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        channel@0 {
+            reg = <0>;
+            ports {
+                #address-cells = <1>;
+                #size-cells = <0>;
+                port@0 {
+                    status = "okay";
+                    reg = <0>;
+                    tc358743_csi_in0: endpoint@0 {
+                        status = "okay";
+                        port-index = <0>;
+                        bus-width = <2>;
+                        remote-endpoint = <&tc358743_out1>;
+                    };
+                };
+                port@1 {
+                    reg = <1>;
+                    status = "okay";
+                    tc358743_csi_out0: endpoint@1 {
+                        status = "okay";
+                        remote-endpoint = <&tc358743_vi_in1>;
+                    };
+                };
+            };
+        };
+    };
+
+    i2c@546c0000 {  /* I2C_PM, "adapter" 6 */
+        status = "okay";
+        #address-cells = <1>;
+        #size-cells = <0>;
+        tc358743@0f {
+            status = "okay";
+            compatible = "tc358743";
+            reg = <0x0f>; /* shifted by 2 */
+            clocks = <&tegra_car TEGRA210_CLK_EXTERN3>;
+            #clock-cells = <0>;
+            clock-names = "extperiph1";
+            reset-gpios = <&gpio 149 0>;
+            refclk_hz = <27000000>;  // refclk_hz -> regclk
+
+	        interrupt-parent = <&gpio>;
+	        interrupts = <TEGRA_GPIO(E, 6) GPIO_ACTIVE_HIGH>;
+
+            /* Physical dimensions of sensor */
+            physical_w = "4.713";
+            physical_h = "3.494";
+            /* Sensor Model */
+            sensor_model ="tc358743";
+            
+   
+
+            ddc5v_delay = <2>;
+            enable_hdcp = "false";
+            lineinitcnt = <0xe80>;
+            lptxtimecnt = <0x003>;
+            tclk_headercnt = <0x1403>;
+            tclk_trailcnt = <0x00>;
+            ths_headercnt = <0x0103>;
+            twakeup = <0x4882>;
+            tclk_postcnt = <0x008>;
+            ths_trailcnt = <0x02>;
+            hstxvregcnt = <0>;
+
+            ports {
+                #address-cells = <1>;
+                #size-cells = <0>;
+
+                port@0 {
+                    reg = <0>;
+                    tc358743_out1: endpoint {
+                        port-index = <0>; /* CSI A */
+                        bus-width = <2>;
+                        phy_mode = "DPHY";
+                        data-lanes = <1 2>;
+                        clock-lanes = <0>;
+                        //clock-noncontinuous;
+                        link-frequencies = /bits/ 64 <594000000>;//297000000///594000000
+                        remote-endpoint = <&tc358743_csi_in0>;
+                    };
+                };
+            };
+        };
+    };
+};
+
+
+tegra-camera-platform {
+    status = "okay";
+	compatible = "nvidia, tegra-camera-platform";
+	num_csi_lanes = <2>;  // Changed 2 -> 4
+	max_lane_speed = <1500000>;
+	min_bits_per_pixel = <16>;  
+	vi_peak_byte_per_pixel = <2>;
+	vi_bw_margin_pct = <25>;
+	max_pixel_rate = <240000>;
+	isp_peak_byte_per_pixel = <5>;
+	isp_bw_margin_pct = <25>;
+
+    	/**
+	* The general guideline for naming badge_info contains 3 parts, and is as follows,
+	* The first part is the camera_board_id for the module; if the module is in a FFD
+	* platform, then use the platform name for this part.
+	* The second part contains the position of the module, ex. “rear” or “front”.
+	* The third part contains the last 6 characters of a part number which is found
+	* in the module's specsheet from the vender.
+	*/
+	modules {
+
+	    module1 {
+	        status = "okay";
+	        badge = "tc358743_top_i2c6_b";
+	        position = "front";
+	        orientation = "1";
+	        drivernode0 {
+	            status = "okay";
+	            /* Declare PCL support driver (classically known as guid)  */
+	            pcl_id = "v4l2_sensor";
+	            /* Driver's v4l2 device name */
+	            devname = "tc358743 6-000f";
+	            /* Declare the device-tree hierarchy to driver instance */
+	            proc-device-tree = "/proc/device-tree/host1x/i2c@546c0000/tc358743@0f";
+	        };
+	    };
+        
+	};
+};
+};

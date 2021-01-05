@@ -4,10 +4,10 @@ driver & device tree demo for jetson nano
 1080p60 was worked  
 the “冬虫电子” board has been tested.
 ## restriction  
-can't changge resolution by softwear,resolution determined by input hardwear.you should custom on the input device or use gst(ffmpeg) to encode to other resolution.
-the camera can't use,please reflash the orgin drive tree.
-i2s can't use,couse the hardwear module issue.  
-other[reference](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46)
+can't changge resolution by softwear,resolution determined by input hardwear.you should custom on the input device or use gst(ffmpeg) to encode to other resolution.  
+the camera can't use,please reflash the orgin drive tree.  
+i2s can't use,couse the hardwear module issue.   
+other [reference](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46)  
 
 
 # hdmi2csi 模块在jeston nano 上的驱动和设备树。

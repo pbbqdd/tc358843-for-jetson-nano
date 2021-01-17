@@ -24,4 +24,4 @@ other [reference](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46
 其他[参考](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46)
 
 ![module](./4096-3072.jpg)  
-![capture](./Screenshot\ from\ 2021-01-17\ 23-21-08.png)  
+![capture](./Screenshot%20from%202021-01-17%2023-21-08.png)  

@@ -8,6 +8,7 @@ can't changge resolution by softwear,resolution determined by input hardwear.you
 the camera can't use,please reflash the orgin drive tree.  
 i2s can't use,couse the hardwear module issue.   
 other [reference](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46)  
+[ref2](https://forums.developer.nvidia.com/t/no-captured-data-from-v4l2-driver-tc358743/122615/118)
 
 
 # hdmi2csi 模块在jeston nano 上的驱动和设备树。
@@ -22,6 +23,7 @@ other [reference](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46
 
 国产版子i2s功能因为设计问题是不好用。只能靠hdmi音频分离器分离出音频再采集。  
 其他[参考](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46)
+[参考2](https://forums.developer.nvidia.com/t/no-captured-data-from-v4l2-driver-tc358743/122615/118)
 
 ![module](./4096-3072.jpg)  
 ![capture](./Screenshot%20from%202021-01-17%2023-21-08.png)  

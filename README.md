@@ -1,5 +1,5 @@
-# tc358843-for-jetson-nano 2g
-tc358843 for jetson nano for some taobao board  
+# tc358743-for-jetson-nano 2g
+tc358743 for jetson nano for some taobao board  
 driver & device tree demo for jetson nano  
 1080p60 was worked  
 the “冬虫电子” board has been tested.

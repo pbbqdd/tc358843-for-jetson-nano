@@ -1,12 +1,12 @@
 # tc358743-for-jetson-nano 2g
 tc358743 for jetson nano for some taobao board  
-driver & device tree demo for jetson nano  
+driver & device tree demo for jetson nano 
 1080p60 was worked  
 the “冬虫电子” board has been tested.
 ## restriction  
-can't changge resolution by softwear,resolution determined by input hardwear.you should custom on the input device or use gst(ffmpeg) to encode to other resolution.  
-the camera can't use,please reflash the orgin drive tree.  
-i2s can't use,couse the hardwear module issue.   
+can't changge resolution use v4l2ctr,resolution determined by input hardware.you should change on the input device or use gst(ffmpeg) to tranform to other resolution.  
+the camera can't use,please reflash the orgine device tree.
+i2s can't use,couse the hardware module some issue.   
 other [reference](https://gist.github.com/nyacg/becd94a029355825a05f633f38a25b46)  
 [ref2](https://forums.developer.nvidia.com/t/no-captured-data-from-v4l2-driver-tc358743/122615/118)
 
